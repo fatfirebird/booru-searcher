@@ -1,11 +1,11 @@
 {
-  "name": "kk",
+  "name": "booru-searcher",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
   "scripts": {
     "build": "tsc",
-    "start": "nodemon --exec ts-node app.ts"
+    "start": "nodemon --exec ts-node ./src/app.ts"
   },
   "keywords": [],
   "author": "",
