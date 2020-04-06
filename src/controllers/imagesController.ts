@@ -18,7 +18,7 @@ const render = async(req: Request, res: Response) => {
     const images = await search(booru, { 
       random, 
       exclude,
-      limit: 20, 
+      limit: 5, 
       tags,
     })
     .catch(err => {
