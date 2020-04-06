@@ -6,16 +6,13 @@ html(lang="ru")
   body
     include header/header.pug
 
-    .container
+    .images-container
       .row
         if imagesUrl
           each image in imagesUrl
             .image-wrapper
               a(href=image.url)
                 img(src=`${image.preview}`, alt=`${image.id}`)
-          ul
-            li=JSON.stringify(imagesUrl)
-            li 2
         else
           if error
             .col.s12

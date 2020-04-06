@@ -15,8 +15,11 @@
 }
 
 .image-wrapper {
-  width: 200px;
-  height: 200px;
+  display:inline-block;
+  width: 160px;
+  height: 160px;
+  text-align:center;
+  vertical-align: middle; 
 }
 
 .image-wrapper img {
@@ -24,4 +27,15 @@
 
   max-width: 150px;
   max-height: 150px;
+}
+
+.images-container {
+  margin: 0 auto;
+  width: 90%;
+}
+
+@media only screen and (min-width: 601px) {
+  .images-container {
+    width: 95%
+  }
 }
