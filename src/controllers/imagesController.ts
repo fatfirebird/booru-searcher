@@ -2,6 +2,7 @@ import { Request, Response } from 'express';
 import { search } from 'kaori';
 import { Image } from 'kaori/typings/Image';
 import * as Booru from 'booru';
+import fetch from 'node-fetch';
 
 type QueryInterface = {
   booru: string;
@@ -35,13 +36,12 @@ const render = async(req: Request, res: Response) => {
     // });
     // console.log(imagesUrl)
 
-    const images = await Booru.search(booru, tags, {limit: 20, random});
-    console.log(images)
+    const images = await Booru.search('danbooru', tags, {limit: 20, random});
     const imagesUrl = images.map(post => {
-      return { url: post.fileUrl, preview: post.fileUrl, id: post.id}
+      return { url: post.fileUrl, preview: post.previewUrl || post.fileUrl, id: post.id}
     })
-
-    res.render('images', { imagesUrl });
+    const i = images[0]
+    res.render('images', { imagesUrl,  i});
 
   } catch (error) {
     console.log(error)
