@@ -36,6 +36,7 @@ const render = async(req: Request, res: Response) => {
     // console.log(imagesUrl)
 
     const images = await Booru.search(booru, tags, {limit: 20, random});
+    console.log(images)
     const imagesUrl = images.map(post => {
       return { url: post.fileUrl, preview: post.fileUrl, id: post.id}
     })
