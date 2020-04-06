@@ -13,3 +13,15 @@
 .dropdown-content li>span {
   color: #263238;
 }
+
+.image-wrapper {
+  width: 200px;
+  height: 200px;
+}
+
+.image-wrapper img {
+  border: 3px solid #757575;
+
+  max-width: 150px;
+  max-height: 150px;
+}

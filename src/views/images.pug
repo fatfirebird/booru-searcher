@@ -10,9 +10,9 @@ html(lang="ru")
       .row
         if imagesUrl
           each image in imagesUrl
-            .col.s2
+            .image-wrapper
               a(href=image.url)
-                img(src=`${image.preview}`, alt=`${image.id}`, max-width='150px', max-height='150px')
+                img.(src=`${image.preview}`, alt=`${image.id}`)
           ul
             li=JSON.stringify(imagesUrl)
             li 2
