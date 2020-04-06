@@ -20,7 +20,10 @@ const render = async(req: Request, res: Response) => {
       exclude,
       limit: 20, 
       tags,
-    });
+    })
+    .catch(err => {
+      throw err
+    })
 
     const imagesUrl = images.map(image => {
       return { 
@@ -34,7 +37,7 @@ const render = async(req: Request, res: Response) => {
 
   } catch (error) {
     console.log(error)
-    res.render('images');
+    res.render('images', { error });
   }
 }
 

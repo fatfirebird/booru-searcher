@@ -18,8 +18,13 @@ html(lang="ru")
             li 1
             li 2
         else
-          .col.s12 Ничего нет
-    
+          if error
+            .col.s12
+              p Попадос
+              p=error
+          else 
+            .col.s12 Скорее всего тут пусто, ага
+
 
 
     include footer/footer.pug
