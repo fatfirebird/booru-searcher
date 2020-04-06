@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+html(lang="ru")
+  include head/head.pug
+    title= title
+    
+  body
+    include header/header.pug
+
+    .container
+      .row
+        form#search-form.col.s12(action='/images' method='get')
+          .row
+            .input-field.col.s6
+              input#test.validate(name='tags' type='text')
+              label(for='test') текст
+            .input-field.col.s6
+              select(name='booru')
+                option(value='konachannet' selected) konachannet
+                option(value='danbooru' disabled) danbooru
+              label буры
+          .row
+            .input-field.col.s6
+              input#test.validate(name='exclude' type='text')
+              label(for='test') текст
+            .col.s2
+              label
+                input.filled-in(type='checkbox' name='random' checked='checked')
+                span random
+            .col.s6.right
+              button.waves-effect.waves-light.btn.right(type='submit') Отправить
+    
+    script.
+      //- const form = document.querySelector('#search-form');
+      //- form.addEventListener('submit', (e) => {
+      //-   e.preventDefault();
+      //-   const checkboxes = document.querySelectorAll('input[type="checkbox"]')
+      //-   console.log(checkboxes)
+      //-   checkboxes.forEach(checkbox => {
+      //-     if (checkbox.checked) {
+      //-       checkbox.value = true
+      //-     }
+      //-     else {
+      //-       checkbox.value = false
+      //-     }
+      //-   })
+      //- })
+
+      document.addEventListener('DOMContentLoaded', () => {
+        const elems = document.querySelectorAll('select');
+        const instances = M.FormSelect.init(elems);
+      });
+
+    include footer/footer.pug

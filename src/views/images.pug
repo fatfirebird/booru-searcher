@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+html(lang="ru")
+  include head/head.pug
+    title= title
+    
+  body
+    include header/header.pug
+
+    .container
+      .row.teal
+        .col.s12 s
+      .row
+        if imagesUrl
+          each image in imagesUrl
+            a(href=image.url)
+              img(src=`${image.preview}`, alt=`${image.id}`, width='20%', height='20%')
+          ul
+            li 1
+            li 2
+        else
+          .col.s12 Ничего нет
+    
+
+
+    include footer/footer.pug

@@ -1,0 +1,10 @@
+nav
+  .nav-wrapper
+    a.brand-logo.left( href='#' ) Logo
+    ul#nav-mobile.right
+      each val in ['Поиск', 'ссылка2', 'ссылка3', 'ссылка4']
+        li
+          if (val === 'Поиск') 
+            a(href='/search')= val
+          else
+            a(href='#')= val
