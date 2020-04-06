@@ -4,9 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "build": "tsc",
-    "start": "ts-node ./src/app.ts",
-    "start:dev": "nodemon --exec ts-node ./src/app.ts"
+    "build": "tsc && pug src --out ./build",
+    "start": "node ./build/app.js"
   },
   "keywords": [],
   "author": "",
@@ -22,6 +21,7 @@
   },
   "dependencies": {
     "express": "^4.17.1",
-    "kaori": "^2.0.1"
+    "kaori": "^2.0.1",
+    "pug-cli": "^1.0.0-alpha6"
   }
 }
