@@ -2,7 +2,7 @@ import { Request, Response } from 'express';
 import { search } from 'kaori';
 import { Image } from 'kaori/typings/Image';
 
-interface QueryInterface {
+type QueryInterface = {
   booru: string;
   tags: string;
   exclude: [];
@@ -18,7 +18,7 @@ const render = async(req: Request, res: Response) => {
     const images = await search(booru, { 
       random, 
       exclude,
-      limit: 5, 
+      limit: 20,
       tags,
     })
     .catch(err => {
@@ -27,12 +27,12 @@ const render = async(req: Request, res: Response) => {
 
     const imagesUrl = images.map(image => {
       return { 
-        preview: image.previewURL, 
+        preview: image.previewURL || image.fileURL, 
         url: image.fileURL,
         id: image.id
       }
     });
-
+    console.log(imagesUrl)
     res.render('images', { imagesUrl });
 
   } catch (error) {

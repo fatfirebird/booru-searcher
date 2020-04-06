@@ -11,26 +11,24 @@ html(lang="ru")
         form#search-form.col.s12(action='/images' method='get')
           .row
             .input-field.col.s6
-              input#test.validate(name='tags' type='text')
-              label(for='test') текст
+              input#tags.validate(name='tags' type='text')
+              label(for='tags') Теги
             .input-field.col.s6
               select(name='booru')
                 option(value='konachannet' selected) konachannet
-                option(value='gelbooru') gelbooru
-                option(value='danbooru') danbooru
+                option(value='gelbooru' ) gelbooru
+                option(value='danbooru' ) danbooru
                 option(value='yandere') yandere
                 option(value='lolibooru') lolibooru
                 option(value='rule34') rule34
-                option(value='safebooru') safebooru
+                option(value='safebooru' ) safebooru
                 option(value='tbib') tbib
                 option(value='xbooru') xbooru
-
-
-              label буры
+              label Буры
           .row
-            .input-field.col.s6
-              input#test.validate(name='exclude' type='text')
-              label(for='test') текст
+            .input-field.col.s4
+              input#exclude.validate(name='exclude' type='text')
+              label(for='exclude') Не содержит
             .col.s2
               label
                 input.filled-in(type='checkbox' name='random' checked='checked')
