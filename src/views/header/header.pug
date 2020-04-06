@@ -1,10 +1,10 @@
-nav
-  .nav-wrapper
-    a.brand-logo.left( href='#' ) Logo
-    ul#nav-mobile.right
-      each val in ['Поиск', 'ссылка2', 'ссылка3', 'ссылка4']
+nav.header
+  .nav-wrapper.grey.darken-1
+    ul#nav-mobile
+      li
+        a( href='/search' ) Поиск
+      div.right
         li
-          if (val === 'Поиск') 
-            a(href='/search')= val
-          else
-            a(href='#')= val
+          a(href='/') Главная
+        li
+          a(href='/search') Soon...

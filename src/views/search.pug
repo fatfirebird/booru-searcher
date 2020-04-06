@@ -15,7 +15,6 @@ html(lang="ru")
               label(for='tags') Теги
             .input-field.col.s6
               select(name='booru')
-                option(value='konachannet' selected) konachannet
                 option(value='gelbooru' ) gelbooru
                 option(value='danbooru' ) danbooru
                 option(value='yandere') yandere
@@ -27,14 +26,15 @@ html(lang="ru")
               label Буры
           .row
             .input-field.col.s4
-              input#exclude.validate(name='exclude' type='text')
-              label(for='exclude') Не содержит
+              input#limit.validate(name='limit' type='text')
+              label(for='limit') Лимит
             .col.s2
               label
                 input.filled-in(type='checkbox' name='random' checked='checked')
                 span random
+          .row
             .col.s6.right
-              button.waves-effect.waves-light.btn.right(type='submit') Отправить
+              button.waves-effect.waves-light.blue-grey.darken-4.btn.right(type='submit') Отправить
     
     script.
       //- const form = document.querySelector('#search-form');

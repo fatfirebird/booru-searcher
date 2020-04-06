@@ -11,6 +11,7 @@ const app = express();
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'pug');
 
+app.use(express.static(__dirname));
 app.use('/', homeRouter);
 app.use('/search', searchRouter);
 app.use('/images', imagesRouter);

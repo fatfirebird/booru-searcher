@@ -7,22 +7,21 @@ html(lang="ru")
     include header/header.pug
 
     .container
-      .row.teal
-        .col.s12=i
       .row
         if imagesUrl
           each image in imagesUrl
-            a(href=image.url)
-              img(src=`${image.preview}`, alt=`${image.id}`, nax-width='150px', max-height='150px')
+            .col.s2
+              a(href=image.url)
+                img(src=`${image.preview}`, alt=`${image.id}`, max-width='150px', max-height='150px')
           ul
-            li 1
+            li=JSON.stringify(imagesUrl)
             li 2
         else
           if error
             .col.s12
-              p Попадос
-              p=error
+              p.flow-text Попадос
+              p.flow-text=error
           else 
-            .col.s12 Скорее всего тут пусто, ага
+            .col.s12 Скорее всего тут пусто
 
 

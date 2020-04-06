@@ -9,12 +9,15 @@ type QueryInterface = {
   tags: string;
   exclude: [];
   random?: boolean;
+  limit: number 
 }
 
 const render = async(req: Request, res: Response) => {
   try {
     // console.log(req.query)
-    const { booru, random, exclude }: QueryInterface = req.query;
+    const { booru } = req.query;
+    const limit = +req.query.limit;
+    const random = !!req.query.random;
     const tags: Array<string> = req.query.tags.split(', ');
 
     // const images = await search(booru, { 
@@ -36,9 +39,13 @@ const render = async(req: Request, res: Response) => {
     // });
     // console.log(imagesUrl)
 
-    const images = await Booru.search(booru, tags, {limit: 20, random});
+    const images = await Booru.search(booru, tags, {limit, random});
     const imagesUrl = images.map(post => {
-      return { url: post.fileUrl, preview: post.previewUrl || post.fileUrl, id: post.id}
+      return { 
+        url: post.fileUrl, 
+        preview: post.previewUrl || post.fileUrl, 
+        id: post.id
+      }
     })
     const i = images[0]
     res.render('images', { imagesUrl,  i});
