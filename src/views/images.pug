@@ -12,7 +12,7 @@ html(lang="ru")
           each image in imagesUrl
             .image-wrapper
               a(href=image.url)
-                img.(src=`${image.preview}`, alt=`${image.id}`)
+                img(src=`${image.preview}`, alt=`${image.id}`)
           ul
             li=JSON.stringify(imagesUrl)
             li 2
