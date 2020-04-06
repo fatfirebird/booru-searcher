@@ -34,6 +34,10 @@
   width: 90%;
 }
 
+.images-container .row {
+  text-align: center;
+}
+
 @media only screen and (min-width: 601px) {
   .images-container {
     width: 95%
