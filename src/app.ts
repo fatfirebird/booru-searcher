@@ -15,6 +15,6 @@ app.use('/', homeRouter);
 app.use('/search', searchRouter);
 app.use('/images', imagesRouter);
 
-app.listen(3000, () => {
+app.listen((process.env.PORT || 3000), () => {
   console.log('поiхали');
 });
