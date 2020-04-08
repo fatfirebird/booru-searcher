@@ -15,6 +15,7 @@ html(lang="ru")
               label(for='tags') Теги
             .input-field.col.s6
               select(name='booru')
+                option(valoe='konan') konachan.net
                 option(value='gelbooru' ) gelbooru
                 option(value='danbooru' ) danbooru
                 option(value='yandere') yandere
@@ -37,21 +38,6 @@ html(lang="ru")
               button.waves-effect.waves-light.blue-grey.darken-4.btn.right(type='submit') Отправить
     
     script.
-      //- const form = document.querySelector('#search-form');
-      //- form.addEventListener('submit', (e) => {
-      //-   e.preventDefault();
-      //-   const checkboxes = document.querySelectorAll('input[type="checkbox"]')
-      //-   console.log(checkboxes)
-      //-   checkboxes.forEach(checkbox => {
-      //-     if (checkbox.checked) {
-      //-       checkbox.value = true
-      //-     }
-      //-     else {
-      //-       checkbox.value = false
-      //-     }
-      //-   })
-      //- })
-
       document.addEventListener('DOMContentLoaded', () => {
         const elems = document.querySelectorAll('select');
         const instances = M.FormSelect.init(elems);

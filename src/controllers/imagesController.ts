@@ -1,57 +1,44 @@
 import { Request, Response } from 'express';
-import { search } from 'kaori';
-import { Image } from 'kaori/typings/Image';
 import * as Booru from 'booru';
-import fetch from 'node-fetch';
-
-type QueryInterface = {
-  booru: string;
-  tags: string;
-  exclude: [];
-  random?: boolean;
-  limit: number 
-}
+import SearchParameters from 'booru/dist/structures/SearchParameters';
 
 const render = async(req: Request, res: Response) => {
   try {
-    // console.log(req.query)
     const { booru } = req.query;
     const limit = +req.query.limit;
     const random = !!req.query.random;
     const tags: Array<string> = req.query.tags.split(', ');
+    const parameters: SearchParameters = {
+      limit, 
+      random
+    }
 
-    // const images = await search(booru, { 
-    //   random, 
-    //   exclude,
-    //   limit: 20,
-    //   tags,
-    // })
-    // .catch(err => {
-    //   throw err
-    // })
+    const images = await Booru.search(booru, tags, parameters);
 
-    // const imagesUrl = images.map(image => {
-    //   return { 
-    //     preview: image.previewURL || image.fileURL, 
-    //     url: image.fileURL,
-    //     id: image.id
-    //   }
-    // });
-    // console.log(imagesUrl)
+    if (images.length === 0) {
+      throw new Error('Ничего не найдено!')
+    }
 
-    const images = await Booru.search(booru, tags, {limit, random});
     const imagesUrl = images.map(post => {
       return { 
-        url: post.fileUrl, 
-        preview: post.previewUrl || post.fileUrl, 
-        id: post.id
+        url: post.fileUrl,
+        size: {
+          height: post.height,
+          width: post.width
+        },
+        tags: post.tags,
+        preview: post.previewUrl || post.sampleUrl || post.fileUrl, 
+        id: post.id,
+        source: post.source,
+        rating: post.rating,
+        date: post.createdAt,
       }
-    })
-    const i = images[0]
-    res.render('images', { imagesUrl,  i});
+    });
+
+    res.render('images', { imagesUrl });
 
   } catch (error) {
-    console.log(error)
+    console.log(error);
     res.render('images', { error });
   }
 }

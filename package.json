@@ -23,7 +23,6 @@
   "dependencies": {
     "booru": "^2.2.1",
     "express": "^4.17.1",
-    "kaori": "^2.0.1",
     "pug": "^2.0.4"
   }
 }
