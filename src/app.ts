@@ -15,6 +15,9 @@ app.use(express.static(__dirname));
 app.use('/', homeRouter);
 app.use('/search', searchRouter);
 app.use('/images', imagesRouter);
+app.use((req, res) => {
+  res.status(404).render('404');
+})
 
 app.listen((process.env.PORT || 3000), () => {
   console.log('поiхали');

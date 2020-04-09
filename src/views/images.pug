@@ -11,8 +11,7 @@ html(lang="ru")
         if imagesUrl
           each image in imagesUrl
             .image-wrapper
-              a(href=image.url)
-                img(src=`${image.preview}`, alt=`${image.id}`)
+              img(src=`${image.preview}`, alt=`${image.id}`)
         else
           if error
             .col.s12
@@ -21,7 +20,6 @@ html(lang="ru")
           else 
             .col.s12 Скорее всего тут пусто
 
-      script.
-        //- let a = Date.now();
-        const sd = () => !{JSON.stringify(imagesUrl)}
-      script(src='/views/images.js')
+    script.
+      const getData = () => !{JSON.stringify(imagesUrl)}
+    script(src='/views/images.js')
