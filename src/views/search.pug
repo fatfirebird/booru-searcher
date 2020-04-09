@@ -15,6 +15,7 @@ html(lang="ru")
               label(for='tags') Теги
             .input-field.col.s6
               select(name='booru')
+                option(valoe='konan') konachan.net
                 option(value='gelbooru' ) gelbooru
                 option(value='danbooru' ) danbooru
                 option(value='yandere') yandere
@@ -23,10 +24,11 @@ html(lang="ru")
                 option(value='safebooru' ) safebooru
                 option(value='tbib') tbib
                 option(value='xbooru') xbooru
+                option(value='konac') konachan.com
               label Буры
           .row
             .input-field.col.s4
-              input#limit.validate(name='limit' type='text' required)
+              input#limit.validate(name='limit' type='number' min='1' max='1000' required)
               label(for='limit') Лимит
             .col.s2
               label
@@ -37,21 +39,6 @@ html(lang="ru")
               button.waves-effect.waves-light.blue-grey.darken-4.btn.right(type='submit') Отправить
     
     script.
-      //- const form = document.querySelector('#search-form');
-      //- form.addEventListener('submit', (e) => {
-      //-   e.preventDefault();
-      //-   const checkboxes = document.querySelectorAll('input[type="checkbox"]')
-      //-   console.log(checkboxes)
-      //-   checkboxes.forEach(checkbox => {
-      //-     if (checkbox.checked) {
-      //-       checkbox.value = true
-      //-     }
-      //-     else {
-      //-       checkbox.value = false
-      //-     }
-      //-   })
-      //- })
-
       document.addEventListener('DOMContentLoaded', () => {
         const elems = document.querySelectorAll('select');
         const instances = M.FormSelect.init(elems);
