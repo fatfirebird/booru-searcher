@@ -32,6 +32,11 @@
   cursor: pointer;
 }
 
+.image-wrapper img:hover {
+  transform: scale(1.2);
+  transition: 0.3s;
+}
+
 .images-container {
   margin: 0 auto;
   width: 90%;
@@ -50,7 +55,6 @@
   height: 100%;
 
   margin: 0;
-
 }
 
 .layout::after {

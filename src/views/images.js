@@ -6,10 +6,10 @@ const createTags = (tags) => tags.map(tag => `<div class="tag">${tag}</div>`).jo
 const createDesc = (source, rating, size, date) => {
   const localDate = new Date(date).toLocaleDateString();
   return `
-  ${source && `<a href="${source}" target="_blank">Оригинал</a>`}
-  ${rating && `<div>Рейтинг: ${rating}</div>`}
-  ${size && `<div>Размер: ${size.width}x${size.height}</div>`}
-  ${date && `<div>Дата: ${localDate}</div>`}
+    ${source ? `<a href="${source}" target="_blank">Оригинал</a>` : ''}
+    ${rating ? `<div>Рейтинг: ${rating}</div>` : ''}
+    ${size ? `<div>Размер: ${size.width}x${size.height}</div>` : ''}
+    ${date ? `<div>Дата: ${localDate}</div>` : ''}
 `};
 
 const createButton = (id, icon) => `
@@ -42,7 +42,7 @@ const createLayout = (id) => {
         </div>
         <div class="section">
           <h5>Теги</h5>
-          ${createTags(file.tags)}
+          ${createTags(file.tags.split(' '))}
         </div>
         <div class="section">
           ${createDesc(file.source, file.rating, file.size, file.date)}
