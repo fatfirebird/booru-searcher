@@ -1,4 +1,5 @@
 const images = document.querySelectorAll('.image-wrapper');
+const next = document.querySelector('.next');
 const pics = getData();
 
 const createTags = (tags) => tags.map(tag => `<div class="tag">${tag}</div>`).join('');
@@ -21,6 +22,20 @@ const createButton = (id, icon) => `
     <i class="material-icons">${icon}</i>
   </button> 
 `
+
+const createContent = (extension, url, id) => {
+  if (extension === 'webm' || extension === 'mp4') {
+    return (
+      `<video class="main-image" controls="controls">
+          <source src="${url}" type='video/${extension}'>
+      </video>`
+    )
+  } else {
+    return (
+      `<img class="main-image" src="${url}" alt="${id}"/>`
+    )
+  }
+}
 
 const createLayout = (id) => {
   const layout = document.createElement('div');
@@ -49,7 +64,7 @@ const createLayout = (id) => {
         </div>
       </div>
     <div class="col l9 m9 s12 main-image-container">
-      <img class="main-image" src="${file.url}" alt="${id}"/>
+       ${createContent(file.extension, file.url, id)}
     </div>
     <div class="col s1 button-container right">
       ${createButton('layout-close', 'close')}
@@ -97,3 +112,45 @@ window.addEventListener('keyup', e => {
     layout.remove();
   }
 });
+
+// window.addEventListener('scroll', e => {
+//   const pageHeight = document.documentElement.clientHeight;
+//   const clientPosition = document.documentElement.getBoundingClientRect().bottom;
+//   if (clientPosition - pageHeight <= 150) {
+//     console.log('загрузить лолей')
+//   }
+// });
+
+const getUrlParams = () => {
+  const queryString = window.location.search;
+  const urlParams = new URLSearchParams(queryString);
+
+  const tags = urlParams.get('tags')
+  const booru = urlParams.get('booru')
+  const order = urlParams.get('order')
+  const mode = urlParams.get('mode')
+
+  return {tags, booru, order, mode, page: 2}
+}
+
+next.addEventListener('click', async e => {
+  e.preventDefault();
+  console.log('загрузить лолей');
+  console.log(next.attributes.href.value)
+
+  const data = getUrlParams();
+
+  const a = await fetch('/search', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+      // 'Content-Type': 'application/x-www-form-urlencoded',
+    },
+    body: JSON.stringify(data)
+  })
+    .then(async res => {
+      const data = await res.json()
+      console.log(JSON.stringify(data))
+    })
+  next.remove();
+})

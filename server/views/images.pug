@@ -19,6 +19,12 @@ html(lang="ru")
               p.flow-text=error
           else 
             .col.s12 Скорее всего тут пусто
+    if next
+      .row.center
+        a.next(href=`${next}`) Загрузить еще!
+    else
+      .row.center
+        span Больше ничего нет!
 
     script.
       const getData = () => !{JSON.stringify(imagesUrl)}
