@@ -10,7 +10,7 @@ class Booru {
     filter: TBooruFilter,
     mode: 's' | 'q' | 'e' | 'a' = 's',
     order: 'r' | 'd' | 'n' = 'd',
-    page = 1
+    page: number
   ) {
     const tag = filter.tag ? `tag:${filter.tag}` : '';
     const searchUrl = filter.url ? `+url:${filter.url}` : '';
@@ -36,7 +36,7 @@ class Booru {
         }
       })
       .catch(err => {
-        console.log(err);
+        // console.log(err);
         return err;
       });
   }

@@ -23,15 +23,15 @@ type TPost = {
 
 const render = async(req: Request, res: Response) => {
   try {
-    const { booru, order, mode, tags } = req.query;
-    const query: TQuery = await Booru.search({tag: tags, url: booru}, mode, order);
+    const { booru, order, mode, tags, page } = req.query;
+    const query: TQuery = await Booru.search({tag: tags, url: booru}, mode, order, page);
     // console.log(query)
 
     if (query.results.length === 0) {
       throw new Error('Ничего не найдено!')
     }
 
-    const imagesUrl = query.results.map(post => {
+    const images = query.results.map(post => {
       return {
         url: post.url,
         size: {
@@ -48,7 +48,7 @@ const render = async(req: Request, res: Response) => {
       }
     });
 
-    res.json({ imagesUrl, next: query.next });
+    res.json({ images, next: query.next });
   } catch (error) {
     console.log(error);
     res.json({ error });

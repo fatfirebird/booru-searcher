@@ -1,14 +1,16 @@
 import React from 'react';
 
 type TRadioValue = 's' | 'q' | 'e' | 'a' | 'd' | 'r';
+
 type TRadioProps = {
   label: string,
   name: string,
-  values: Array<TRadioValue>
+  values: Array<TRadioValue>,
+  inputRef: React.ElementRef<any>
 }
 
 const Radio = (props: TRadioProps) => {
-  const { label, name, values } = props;
+  const { label, name, values, inputRef } = props;
 
   enum inputLabels {
     a = 'Any',
@@ -23,7 +25,7 @@ const Radio = (props: TRadioProps) => {
     return(
       <div key={id}>
         <label>
-          <input className='with-gap' name={name} value={value} type='radio' defaultChecked={id === 0}/>
+          <input className='with-gap' name={name} value={value} type='radio' defaultChecked={id === 0} ref={inputRef}/>
           <span>{inputLabels[value]}</span>
         </label>
       </div>
