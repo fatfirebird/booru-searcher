@@ -1,3 +1,9 @@
+import {Dispatch} from "redux";
+import axios from "axios";
+import {hideLoader, showLoader} from "./loaderAction";
+import {updatePages} from "./searchAction";
+import {batch, useSelector} from "react-redux";
+
 export const LOAD_IMAGES: 'LOAD_IMAGES' = 'LOAD_IMAGES';
 export const RESET: 'RESET' = 'RESET';
 
@@ -33,9 +39,33 @@ export const loadImages = (images: Array<TImage>): TLoad => ({
 });
 
 type TReset = {
-  type: typeof RESET
+  type: typeof RESET;
 }
 
 export const resetImages = ():TReset => ({
   type: RESET
-})
+});
+
+export const getImages = (search: string, page: any) => {
+  return (dispatch: Dispatch<any>) => {
+    dispatch(showLoader());
+    axios.get('http://localhost:5000/images' + search)
+      .then(res => {
+        const {images, next} = res.data;
+        if (next !== '') {
+          dispatch(updatePages(next - 1, next));
+        } else {
+          dispatch(updatePages(page, next))
+        }
+        batch(() => {
+          dispatch(loadImages(images));
+          dispatch(hideLoader());
+        });
+
+      })
+      .catch(err => {
+        console.log(err);
+        dispatch(hideLoader());
+      });
+  }
+}

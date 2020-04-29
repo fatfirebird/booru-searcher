@@ -12,8 +12,9 @@ export default (state = initialState, action: TAction): TInitialState => {
   switch (action.type) {
     case LOAD_IMAGES: {
       const { images } = action.payload;
+      const allImages = state.images.concat(images);
       return {
-        images
+        images: allImages
       }
     }
 

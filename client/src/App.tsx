@@ -9,6 +9,7 @@ import Home from "./components/Home/Home";
 import Search from "./components/Search/Search";
 import Header from "./components/UI/Header/Header";
 import Gallery from "./components/Gallery/Gallery";
+import GalleryContainer from "./components/Gallery/GalleryContainer";
 
 const App = () => {
   const history = createBrowserHistory()
@@ -22,7 +23,7 @@ const App = () => {
             <Search />
           </Route>
           <Route path='/gallery'>
-            <Gallery />
+            <GalleryContainer />
           </Route>
           <Route path='/'>
             <Home />

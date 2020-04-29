@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useEffect} from "react";
 import { useForm } from "react-hook-form";
 import DefaultInput from "../../UI/Inputs/DefaultInput";
 import SelectInput from "../../UI/Inputs/Select";
@@ -8,6 +8,9 @@ import {batch, useDispatch, useSelector} from "react-redux";
 import {updatePages, updateParams} from "../../../redux/actions/searchAction";
 import {loadImages} from "../../../redux/actions/imagesAction";
 import {withRouter} from "react-router-dom";
+// @ts-ignore
+import M from 'materialize-css/dist/js/materialize.min.js';
+
 
 interface IRootState {
   searchParams: {
@@ -17,7 +20,7 @@ interface IRootState {
 
 type FormInputs = {
   tags: string,
-  booru: 'multi' | 'Konachan' | 'Gelbooru' | 'Danbooru' | 'Yandere' | 'Safebooru' | 'SankakuComplex',
+  booru: '' | 'Konachan' | 'Gelbooru' | 'Danbooru' | 'Yandere' | 'Safebooru' | 'SankakuComplex',
   order: 'd' | 'r', //date desc, random
   mode: 's' | 'q' | 'e' | 'a' //safe, questionable, explicit, any
 }
@@ -30,22 +33,33 @@ const SearchForm = ({history}: any) => {
 
   const dispatch = useDispatch();
 
+  useEffect(() => {
+    dispatch(updatePages(1, 2))
+  }, [])
+
   const onSubmit = async (data: FormInputs) => {
     const { tags, booru, mode, order } = data;
-    await getImagesByProps(tags, booru, order, mode, page)
-      .then((res) => {
-        const { images, next } = res.response.data;
-        const { query } = res
-        batch(() => {
-          dispatch(loadImages(images));
-          dispatch(updatePages(next));
-          dispatch(updateParams(tags, mode, booru, order));
-        });
-        history.push(`/gallery${query}`);
-      })
-      .catch((err) => {
-        console.log(err)
-      })
+    // await getImagesByProps(tags, booru, order, mode, page)
+    //   .then((res) => {
+    //     console.log(res.response)
+    //     const { images, next } = res.response.data;
+    //     if (images) {
+    //       const { query } = res
+    //       batch(() => {
+    //         dispatch(loadImages(images));
+    //         dispatch(updatePages(next, 1));
+    //         // dispatch(updateParams(tags, mode, booru, order));
+    //       });
+    //       history.push(`/gallery${query}`);
+    //     } else {
+    //       throw new Error('Что-то пошло не так')
+    //     }
+    //     return res
+    //   })
+    //   .catch((err) => {
+    //     M.toast({html: err})
+    //     return err
+    //   })
   }
 
   return(

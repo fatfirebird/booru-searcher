@@ -19,8 +19,4 @@ export const getImagesByProps = async (
 export const getImagesByQuery = async (query: string) => {
   return await axios.get(url + query)
     .then(res => res)
-    .catch(err => {
-      console.log(err)
-      return err
-    })
 }

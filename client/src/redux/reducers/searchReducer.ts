@@ -3,17 +3,19 @@ import {RESET, TAction, UPDATE_PAGES, UPDATE_PARAMS} from '../actions/searchActi
 type TInitialState = {
   tags: string,
   mode: 's' | 'q' | 'e' | 'a',
-  booru: 'multi' | 'Konachan' | 'Gelbooru' | 'Danbooru' | 'Yandere' | 'Safebooru' | 'SankakuComplex',
+  booru: '' | 'Konachan' | 'Gelbooru' | 'Danbooru' | 'Yandere' | 'Safebooru' | 'SankakuComplex',
   order: 'd' | 'r',
-  cur_page: number | '',
+  currentPage: number | '',
+  nextPage: number | '' | null,
 }
 
 const initialState: TInitialState = {
   tags: '',
   mode: 's',
-  booru: 'multi',
+  booru: '',
   order: 'd',
-  cur_page: 1,
+  currentPage: 1,
+  nextPage: null
 }
 
 export default (state = initialState, action: TAction): TInitialState => {
@@ -30,10 +32,11 @@ export default (state = initialState, action: TAction): TInitialState => {
     }
 
     case UPDATE_PAGES: {
-      const { cur_page } = action.payload;
+      const { currentPage, nextPage } = action.payload;
       return {
         ...state,
-        cur_page,
+        currentPage,
+        nextPage,
       }
     }
 

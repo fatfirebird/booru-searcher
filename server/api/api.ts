@@ -27,7 +27,7 @@ class Booru {
     page = 1
   ) {
     const query = this._createQuery(filter, mode, order, page);
-
+    console.log(query)
     return await axios.get(query)
       .then(res => {
         return {

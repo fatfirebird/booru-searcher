@@ -7,7 +7,7 @@ export type TAction = TUpdateParams | TUpdatePages | TReset;
 type TParamsPayload = {
   tags: string,
   mode: 's' | 'q' | 'e' | 'a',
-  booru: 'multi' | 'Konachan' | 'Gelbooru' | 'Danbooru' | 'Yandere' | 'Safebooru' | 'SankakuComplex',
+  booru: '' | 'Konachan' | 'Gelbooru' | 'Danbooru' | 'Yandere' | 'Safebooru' | 'SankakuComplex',
   order: 'd' | 'r',
 }
 
@@ -19,7 +19,7 @@ type TUpdateParams = {
 export const updateParams = (
   tags: string,
   mode: 's' | 'q' | 'e' | 'a',
-  booru: 'multi' | 'Konachan' | 'Gelbooru' | 'Danbooru' | 'Yandere' | 'Safebooru' | 'SankakuComplex',
+  booru: '' | 'Konachan' | 'Gelbooru' | 'Danbooru' | 'Yandere' | 'Safebooru' | 'SankakuComplex',
   order: 'd' | 'r'
 ): TUpdateParams => ({
   type: UPDATE_PARAMS,
@@ -34,14 +34,16 @@ export const updateParams = (
 type TUpdatePages = {
   type: typeof UPDATE_PAGES,
   payload: {
-    cur_page: number
+    currentPage: number | '',
+    nextPage: number | '' | null
   }
 }
 
-export const updatePages = (cur_page: number): TUpdatePages => ({
+export const updatePages = (currentPage: number | '', nextPage: number | '' | null): TUpdatePages => ({
   type: UPDATE_PAGES,
   payload: {
-    cur_page
+    currentPage,
+    nextPage
   }
 })
 

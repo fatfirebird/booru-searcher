@@ -24,6 +24,7 @@ type TPost = {
 const render = async(req: Request, res: Response) => {
   try {
     const { booru, order, mode, tags, page } = req.query;
+    console.log(req.query)
     const query: TQuery = await Booru.search({tag: tags, url: booru}, mode, order, page);
     // console.log(query)
 
