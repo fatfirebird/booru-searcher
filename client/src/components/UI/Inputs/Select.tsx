@@ -9,7 +9,7 @@ type TSelectInput = {
 
 const SelectInput = (props: TSelectInput) => {
   const { name, label, values, inputRef } = props;
-  const createOptions = () => values.map(value => <option key={value} value={value}>{value}</option>);
+  const createOptions = () => values.map(value => <option key={value} value={value === 'multi' ? '' : value}>{value}</option>);
 
   return(
     <React.Fragment>

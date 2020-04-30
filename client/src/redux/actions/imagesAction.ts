@@ -52,6 +52,7 @@ export const getImages = (search: string, page: any) => {
     axios.get('http://localhost:5000/images' + search)
       .then(res => {
         const {images, next} = res.data;
+        console.log('page ' + next)
         if (next !== '') {
           dispatch(updatePages(next - 1, next));
         } else {

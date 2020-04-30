@@ -1,10 +1,11 @@
-import React, {useEffect, useRef} from "react";
+import React, {useEffect, useRef, useState} from "react";
 import {batch, useDispatch, useSelector} from "react-redux";
 import {getImages} from "../../redux/actions/imagesAction";
 import { withRouter } from "react-router-dom";
-import {updatePages, updateParams} from "../../redux/actions/searchAction";
+import {updateParams} from "../../redux/actions/searchAction";
 import { AppState } from "../../redux/reducers/rootReducer";
 import Gallery from "./Gallery";
+import ImageInfo from "./imageInfo/imageInfo";
 
 type TBooru = '' | 'Konachan' | 'Gelbooru' | 'Danbooru' | 'Yandere' | 'Safebooru' | 'SankakuComplex';
 type TOrder = 'd' | 'r';
@@ -12,12 +13,14 @@ type TMode = 's' | 'q' | 'e' | 'a';
 
 const GalleryContainer = ({history}: any) => {
   const images = useSelector((state: AppState) => state.images.images);
+  const isOpened = useSelector((state: AppState) => state.images.opened);
   const searchParams = useSelector((state: AppState) => state.searchParams);
   const isLoading = useSelector((state: AppState) => state.loading.loading)
   const dispatch = useDispatch();
 
+  const [imageInfo, setImageInfo] = useState(null);
+
   const container = useRef(null);
-  const frag = useRef(null)
 
   const transformParamsToState = (search: string) => {
     const params = new URLSearchParams(search);
@@ -57,51 +60,33 @@ const GalleryContainer = ({history}: any) => {
         dispatchQuery(page, tags, booru, order, mode);
       })
     }
-  }, []);
+  }, [dispatch]);
 
-  useEffect(() => {
-    window.addEventListener('scroll', handleScroll)
+  const showInfo = (a: any) => {
+    console.log(a)
+    setImageInfo(null);
 
-    // return window.removeEventListener('scroll', handleScroll)
-  }, [])
-
-  useEffect(() => {
-    return () => {
-      window.removeEventListener('scroll', handleScroll)
-    }
-  }, [])
-
-  const handleScroll = (e: any) => {
-    // console.log(window.screenY)
-    // console.log(window.innerHeight)
-    // console.log(window.pageYOffset)
-    // @ts-ignore
-    // console.log(container?.current.clientHeight)
-    // @ts-ignore
-    // console.log(container?.current.scrollHeight)
-    // @ts-ignore
-    const bottom = (container?.current.getBoundingClientRect().bottom)
-    console.log(bottom)
-    // @ts-ignore
-    if (bottom <= 1000) {
-      if (!isLoading) {
-        const {tags, nextPage, order, booru, mode} = searchParams;
-        dispatchQuery(nextPage, tags, booru, order, mode);
-      }
-    }
+    setImageInfo(a);
+    const {date, extension, id, rating, size, source, tags, url} = a;
   }
 
+  console.log(isLoading)
   return(
     <div className='images-container' ref={container}>
-      {images
+      {isLoading && <div>Лоадинг плиз вейт...</div>}
+      {
+        images.length > 0
         ?
         <React.Fragment >
-          <Gallery images={images}/>
-          <button onClick={handleClick} >dfs </button>
+          <Gallery images={images} handleClick={showInfo}/>
+          {
+            searchParams.nextPage !== '' && <a onClick={handleClick} >dfs </a>
+          }
         </React.Fragment>
         :
-        <div>попадос</div>
+        !isLoading && <div>Popados</div>
       }
+      {imageInfo && <ImageInfo info={imageInfo}/>}
     </div>
   )
 }

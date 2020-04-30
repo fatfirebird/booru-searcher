@@ -3,20 +3,10 @@ import { useForm } from "react-hook-form";
 import DefaultInput from "../../UI/Inputs/DefaultInput";
 import SelectInput from "../../UI/Inputs/Select";
 import Radio from "../../UI/Inputs/Radio";
-import {getImagesByProps} from "../../../API/api";
-import {batch, useDispatch, useSelector} from "react-redux";
-import {updatePages, updateParams} from "../../../redux/actions/searchAction";
-import {loadImages} from "../../../redux/actions/imagesAction";
+import {useDispatch} from "react-redux";
+import {resetParams} from "../../../redux/actions/searchAction";
+import {resetImages} from "../../../redux/actions/imagesAction";
 import {withRouter} from "react-router-dom";
-// @ts-ignore
-import M from 'materialize-css/dist/js/materialize.min.js';
-
-
-interface IRootState {
-  searchParams: {
-    cur_page: number
-  }
-}
 
 type FormInputs = {
   tags: string,
@@ -28,38 +18,17 @@ type FormInputs = {
 const SearchForm = ({history}: any) => {
   const { handleSubmit, register } = useForm<FormInputs>();
 
-  const selectPage = (state: IRootState ) => state.searchParams.cur_page;
-  const page = useSelector(selectPage);
-
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(updatePages(1, 2))
+    dispatch(resetParams());
+    dispatch(resetImages());
   }, [])
 
   const onSubmit = async (data: FormInputs) => {
     const { tags, booru, mode, order } = data;
-    // await getImagesByProps(tags, booru, order, mode, page)
-    //   .then((res) => {
-    //     console.log(res.response)
-    //     const { images, next } = res.response.data;
-    //     if (images) {
-    //       const { query } = res
-    //       batch(() => {
-    //         dispatch(loadImages(images));
-    //         dispatch(updatePages(next, 1));
-    //         // dispatch(updateParams(tags, mode, booru, order));
-    //       });
-    //       history.push(`/gallery${query}`);
-    //     } else {
-    //       throw new Error('Что-то пошло не так')
-    //     }
-    //     return res
-    //   })
-    //   .catch((err) => {
-    //     M.toast({html: err})
-    //     return err
-    //   })
+    const queryString = `?page=1&tags=${tags}&booru=${booru}&order=${order}&mode=${mode}`;
+    history.push(`/gallery${queryString}`);
   }
 
   return(

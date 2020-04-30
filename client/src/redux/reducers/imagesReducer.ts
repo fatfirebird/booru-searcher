@@ -1,11 +1,13 @@
 import {LOAD_IMAGES, RESET, TAction, TImage} from "../actions/imagesAction";
 
 type TInitialState = {
-  images: Array<TImage>
+  images: Array<TImage>,
+  opened: boolean
 }
 
 const initialState: TInitialState = {
-  images: []
+  images: [],
+  opened: false
 }
 
 export default (state = initialState, action: TAction): TInitialState => {
@@ -14,6 +16,7 @@ export default (state = initialState, action: TAction): TInitialState => {
       const { images } = action.payload;
       const allImages = state.images.concat(images);
       return {
+        ...state,
         images: allImages
       }
     }

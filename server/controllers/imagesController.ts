@@ -26,7 +26,7 @@ const render = async(req: Request, res: Response) => {
     const { booru, order, mode, tags, page } = req.query;
     console.log(req.query)
     const query: TQuery = await Booru.search({tag: tags, url: booru}, mode, order, page);
-    // console.log(query)
+    console.log(query)
 
     if (query.results.length === 0) {
       throw new Error('Ничего не найдено!')
@@ -52,7 +52,7 @@ const render = async(req: Request, res: Response) => {
     res.json({ images, next: query.next });
   } catch (error) {
     console.log(error);
-    res.json({ error });
+    res.json({ images: [], next: '' });
   }
 }
 
