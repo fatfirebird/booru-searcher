@@ -18,6 +18,7 @@ type TPost = {
   sourceURL: string | null;
   rating: 's' | 'q' | 'e';
   created: number | Date;
+  md5: string;
   extension: TPostExtension
 }
 
@@ -45,7 +46,8 @@ const render = async(req: Request, res: Response) => {
         source: post.sourceURL,
         rating: post.rating,
         date: post.created,
-        extension: post.extension
+        extension: post.extension,
+        md5: post.md5
       }
     });
 

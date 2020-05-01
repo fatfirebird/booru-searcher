@@ -34,10 +34,10 @@ const SearchForm = ({history}: any) => {
   return(
     <form id='search' className='form col s12' method='get' onSubmit={handleSubmit(onSubmit)}>
       <div className='row'>
-        <div className='col s6 input-field'>
+        <div className='col s12 m6 input-field'>
           <DefaultInput name='tags' label='Теги' inputRef={register}/>
         </div>
-        <div className='col s6 input-field'>
+        <div className='col s12 m6 input-field'>
           <SelectInput
             label='Буры'
             name='booru'
@@ -47,10 +47,10 @@ const SearchForm = ({history}: any) => {
         </div>
       </div>
       <div className='row'>
-        <div className='col s2'>
+        <div className='col s6 m3'>
           <Radio label='Порядок' name='order' values={['d', 'r']} inputRef={register}/>
         </div>
-        <div className='col s2'>
+        <div className='col s6 m3'>
           <Radio label='Мод' name='mode' values={['s', 'q', 'e', 'a']} inputRef={register}/>
         </div>
       </div>

@@ -1,8 +1,8 @@
-import {LOAD_IMAGES, RESET, TAction, TImage} from "../actions/imagesAction";
+import {HIDE_IMAGE, LOAD_IMAGES, OPEN_IMAGE, RESET, TAction, TImage} from "../actions/imagesAction";
 
 type TInitialState = {
   images: Array<TImage>,
-  opened: boolean
+  opened: string | false
 }
 
 const initialState: TInitialState = {
@@ -18,6 +18,21 @@ export default (state = initialState, action: TAction): TInitialState => {
       return {
         ...state,
         images: allImages
+      }
+    }
+
+    case OPEN_IMAGE: {
+      const { md5 } = action.payload;
+      return {
+        ...state,
+        opened: md5
+      }
+    }
+
+    case HIDE_IMAGE: {
+      return {
+        ...state,
+        opened: false
       }
     }
 

@@ -2,12 +2,14 @@ import {Dispatch} from "redux";
 import axios from "axios";
 import {hideLoader, showLoader} from "./loaderAction";
 import {updatePages} from "./searchAction";
-import {batch, useSelector} from "react-redux";
+import {batch} from "react-redux";
 
 export const LOAD_IMAGES: 'LOAD_IMAGES' = 'LOAD_IMAGES';
 export const RESET: 'RESET' = 'RESET';
+export const OPEN_IMAGE: 'OPEN_IMAGE' = 'OPEN_IMAGE';
+export const HIDE_IMAGE: 'HIDE_IMAGE' = 'HIDE_IMAGE';
 
-export type TAction = TLoad | TReset;
+export type TAction = TLoad | TReset | TOpenImage | THideImage;
 
 export type TImage = {
   url: string,
@@ -21,7 +23,8 @@ export type TImage = {
   source?: string,
   rating: 's' | 'q' | 'e' | 'a',
   date: number,
-  extension: 'jpeg' | 'jpg' | 'png' | 'gif' | 'webm' | 'mp4'
+  extension: 'jpeg' | 'jpg' | 'png' | 'gif' | 'webm' | 'mp4',
+  md5: string // hash of the image
 }
 
 type TLoad = {
@@ -41,6 +44,29 @@ export const loadImages = (images: Array<TImage>): TLoad => ({
 type TReset = {
   type: typeof RESET;
 }
+
+type TOpenImage = {
+  type: typeof OPEN_IMAGE,
+  payload: {
+    md5: string
+  }
+}
+
+export const openImage = (md5: string): TOpenImage => ({
+  type: OPEN_IMAGE,
+  payload: {
+    md5
+  }
+});
+
+type THideImage = {
+  type: typeof HIDE_IMAGE
+}
+
+export const hideImage = (): THideImage => ({
+  type: HIDE_IMAGE
+});
+
 
 export const resetImages = ():TReset => ({
   type: RESET

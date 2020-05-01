@@ -9,6 +9,7 @@ type TParamsPayload = {
   mode: 's' | 'q' | 'e' | 'a',
   booru: '' | 'Konachan' | 'Gelbooru' | 'Danbooru' | 'Yandere' | 'Safebooru' | 'SankakuComplex',
   order: 'd' | 'r',
+  // md5: string
 }
 
 type TUpdateParams = {
@@ -20,7 +21,7 @@ export const updateParams = (
   tags: string,
   mode: 's' | 'q' | 'e' | 'a',
   booru: '' | 'Konachan' | 'Gelbooru' | 'Danbooru' | 'Yandere' | 'Safebooru' | 'SankakuComplex',
-  order: 'd' | 'r'
+  order: 'd' | 'r',
 ): TUpdateParams => ({
   type: UPDATE_PARAMS,
   payload: {

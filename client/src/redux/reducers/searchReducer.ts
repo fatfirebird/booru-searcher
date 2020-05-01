@@ -15,7 +15,7 @@ const initialState: TInitialState = {
   booru: '',
   order: 'd',
   currentPage: 1,
-  nextPage: null
+  nextPage: null,
 }
 
 export default (state = initialState, action: TAction): TInitialState => {
@@ -27,7 +27,7 @@ export default (state = initialState, action: TAction): TInitialState => {
         tags,
         mode,
         booru,
-        order
+        order,
       }
     }
 

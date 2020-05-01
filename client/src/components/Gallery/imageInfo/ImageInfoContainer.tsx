@@ -4,23 +4,19 @@ import ContentSection from "./ContentSection/ContentSection";
 import LayoutButton from "../../UI/Buttons/LayoutButton";
 import {hideImage} from "../../../redux/actions/imagesAction";
 import {useDispatch} from "react-redux";
-import {useWindowSize} from "../../../hooks/useWindowSize";
 
-const ImageInfo = (props: any) => {
+const ImageInfoContainer = (props: any) => {
   const {date, extension, id, rating, size, source, tags, url} = props.info;
   const dispatch = useDispatch();
 
   const [isInfoOpened, openInfo] = useState(false);
 
-  const {width} = useWindowSize();
 
   useEffect(() => {
-    if (width >= 601) {
+    if (window.innerWidth >= 601) {
       openInfo(true)
     }
-  }, [width])
-
-  console.log(width)
+  }, [])
 
   return(
     <div className="layout row">
@@ -28,7 +24,7 @@ const ImageInfo = (props: any) => {
       <ContentSection extension={extension} url={url} id={id}/>
       <LayoutButton position='right' icon='close' onClick={() => {dispatch(hideImage())}}/>
       {
-        width < 601
+        window.innerWidth < 601
         &&
         <LayoutButton position='left' icon='menu' onClick={() => {openInfo(!isInfoOpened)}}/>
       }
@@ -36,4 +32,4 @@ const ImageInfo = (props: any) => {
   )
 }
 
-export default ImageInfo;
+export default ImageInfoContainer;

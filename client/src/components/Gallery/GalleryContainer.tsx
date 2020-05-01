@@ -1,6 +1,6 @@
 import React, {useEffect, useRef, useState} from "react";
 import {batch, useDispatch, useSelector} from "react-redux";
-import {getImages} from "../../redux/actions/imagesAction";
+import {getImages, openImage} from "../../redux/actions/imagesAction";
 import { withRouter } from "react-router-dom";
 import {updateParams} from "../../redux/actions/searchAction";
 import { AppState } from "../../redux/reducers/rootReducer";
@@ -10,6 +10,21 @@ import ImageInfo from "./imageInfo/imageInfo";
 type TBooru = '' | 'Konachan' | 'Gelbooru' | 'Danbooru' | 'Yandere' | 'Safebooru' | 'SankakuComplex';
 type TOrder = 'd' | 'r';
 type TMode = 's' | 'q' | 'e' | 'a';
+type TImageInfo = {
+  url: string,
+  size: {
+    height: number,
+    width: number
+  },
+  tags: string,
+  preview: string,
+  id: string | number,
+  source?: string,
+  rating: 's' | 'q' | 'e' | 'a',
+  date: number,
+  extension: 'jpeg' | 'jpg' | 'png' | 'gif' | 'webm' | 'mp4',
+  md5: string // hash of the image
+}
 
 const GalleryContainer = ({history}: any) => {
   const images = useSelector((state: AppState) => state.images.images);
@@ -18,7 +33,7 @@ const GalleryContainer = ({history}: any) => {
   const isLoading = useSelector((state: AppState) => state.loading.loading)
   const dispatch = useDispatch();
 
-  const [imageInfo, setImageInfo] = useState(null);
+  const [imageInfo, setImageInfo] = useState({});
 
   const container = useRef(null);
 
@@ -62,18 +77,15 @@ const GalleryContainer = ({history}: any) => {
     }
   }, [dispatch]);
 
-  const showInfo = (a: any) => {
-    console.log(a)
-    setImageInfo(null);
-
+  const showInfo = (a: TImageInfo) => {
+    console.log(a.md5)
+    dispatch(openImage(a.md5));
     setImageInfo(a);
-    const {date, extension, id, rating, size, source, tags, url} = a;
   }
 
   console.log(isLoading)
   return(
     <div className='images-container' ref={container}>
-      {isLoading && <div>Лоадинг плиз вейт...</div>}
       {
         images.length > 0
         ?
@@ -86,7 +98,8 @@ const GalleryContainer = ({history}: any) => {
         :
         !isLoading && <div>Popados</div>
       }
-      {imageInfo && <ImageInfo info={imageInfo}/>}
+      {isLoading && <div>Лоадинг плиз вейт...</div>}
+      {isOpened && <ImageInfo info={imageInfo}/>}
     </div>
   )
 }
