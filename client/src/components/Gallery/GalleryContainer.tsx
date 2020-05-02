@@ -5,12 +5,13 @@ import { withRouter } from "react-router-dom";
 import {updateParams} from "../../redux/actions/searchAction";
 import { AppState } from "../../redux/reducers/rootReducer";
 import Gallery from "./Gallery";
-import ImageInfo from "./imageInfo/imageInfo";
+import ImageInfoContainer from "./imageInfo/ImageInfoContainer";
+import Loader from "../Loader/Loader";
 
 type TBooru = '' | 'Konachan' | 'Gelbooru' | 'Danbooru' | 'Yandere' | 'Safebooru' | 'SankakuComplex';
 type TOrder = 'd' | 'r';
 type TMode = 's' | 'q' | 'e' | 'a';
-type TImageInfo = {
+export type TImageInfo = {
   url: string,
   size: {
     height: number,
@@ -19,7 +20,7 @@ type TImageInfo = {
   tags: string,
   preview: string,
   id: string | number,
-  source?: string,
+  source: string | null,
   rating: 's' | 'q' | 'e' | 'a',
   date: number,
   extension: 'jpeg' | 'jpg' | 'png' | 'gif' | 'webm' | 'mp4',
@@ -30,10 +31,10 @@ const GalleryContainer = ({history}: any) => {
   const images = useSelector((state: AppState) => state.images.images);
   const isOpened = useSelector((state: AppState) => state.images.opened);
   const searchParams = useSelector((state: AppState) => state.searchParams);
-  const isLoading = useSelector((state: AppState) => state.loading.loading)
+  const isLoading = useSelector((state: AppState) => state.loading.loading);
   const dispatch = useDispatch();
 
-  const [imageInfo, setImageInfo] = useState({});
+  const [imageInfo, setImageInfo] = useState({} as TImageInfo);
 
   const container = useRef(null);
 
@@ -77,13 +78,11 @@ const GalleryContainer = ({history}: any) => {
     }
   }, [dispatch]);
 
-  const showInfo = (a: TImageInfo) => {
-    console.log(a.md5)
-    dispatch(openImage(a.md5));
-    setImageInfo(a);
+  const showInfo = (image: TImageInfo) => {
+    dispatch(openImage(image.md5));
+    setImageInfo(image);
   }
 
-  console.log(isLoading)
   return(
     <div className='images-container' ref={container}>
       {
@@ -92,14 +91,24 @@ const GalleryContainer = ({history}: any) => {
         <React.Fragment >
           <Gallery images={images} handleClick={showInfo}/>
           {
-            searchParams.nextPage !== '' && <a onClick={handleClick} >dfs </a>
+            searchParams.nextPage !== ''
+            &&
+            <React.Fragment>
+              {
+                !isLoading
+                &&
+                <div className='row center'>
+                  <a onClick={handleClick}>Загрузить еще..</a>
+                </div>
+              }
+            </React.Fragment>
           }
         </React.Fragment>
         :
         !isLoading && <div>Popados</div>
       }
-      {isLoading && <div>Лоадинг плиз вейт...</div>}
-      {isOpened && <ImageInfo info={imageInfo}/>}
+      {isLoading && <Loader/>}
+      {isOpened && <ImageInfoContainer info={imageInfo}/>}
     </div>
   )
 }

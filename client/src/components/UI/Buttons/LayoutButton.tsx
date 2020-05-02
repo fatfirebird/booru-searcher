@@ -1,6 +1,12 @@
 import React from "react";
 
-const LayoutButton = (props: any) => {
+type TProps = {
+  position: 'left' | 'right' | 'center';
+  icon: 'close' | 'menu';
+  onClick: () => void;
+}
+
+const LayoutButton = (props: TProps) => {
   return(
     <div className={`col s1 button-container ${props.position}`}>
       <button

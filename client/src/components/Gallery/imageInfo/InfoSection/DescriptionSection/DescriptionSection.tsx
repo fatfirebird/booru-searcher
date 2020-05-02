@@ -1,7 +1,24 @@
 import React from "react";
 
-const DescriptionSection = (props: any) => {
-  const createDesc = (source: any, rating: any, size: any, date: any) => {
+type TSize = {
+  width: number;
+  height: number;
+}
+
+type TProps = {
+  date: number;
+  source: string | null;
+  rating: 's' | 'q' | 'e' | 'a';
+  size: TSize;
+}
+
+const DescriptionSection = (props: TProps) => {
+  const createDesc = (
+    source: string | null,
+    rating: 's' | 'q' | 'e' | 'a',
+    size: TSize,
+    date: number
+  ) => {
     const localDate = new Date(date).toLocaleDateString();
     return(
       <React.Fragment>

@@ -8,14 +8,17 @@ interface IGallery {
 
 const Gallery = (props: IGallery) => {
   const createImages = (images: Array<TImage>): ReactNode => images.map((el, id) => {
-      return <div key={id} className='image-wrapper'>
-        <img onClick={() => props.handleClick(el)} src={el.preview || el.source} alt={el.id as string}/>
-      </div>
+      return(
+        <div key={id} className='image-wrapper'>
+          <img onClick={() => props.handleClick(el)} src={el.preview || el.source} alt={el.id as string}/>
+        </div>
+      )
+
     }
   );
 
   return(
-    <div className='row'>
+    <div className='row center'>
       {createImages(props.images)}
     </div>
   )

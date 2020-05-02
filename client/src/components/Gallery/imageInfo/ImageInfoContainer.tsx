@@ -1,34 +1,53 @@
 import React, {useEffect, useState} from "react";
-import InfoSection from "./InfoSection/InfoSection";
-import ContentSection from "./ContentSection/ContentSection";
-import LayoutButton from "../../UI/Buttons/LayoutButton";
 import {hideImage} from "../../../redux/actions/imagesAction";
 import {useDispatch} from "react-redux";
+import {useWindowSize} from "../../../hooks/useWindowSize";
+import ImageInfo from "./imageInfo";
+import {TImageInfo} from "../GalleryContainer";
+import {useWindowKeydown} from "../../../hooks/useWindowKeydown";
 
-const ImageInfoContainer = (props: any) => {
-  const {date, extension, id, rating, size, source, tags, url} = props.info;
+type TProps = {
+  info: TImageInfo
+}
+
+const ImageInfoContainer = (props: TProps) => {
   const dispatch = useDispatch();
-
   const [isInfoOpened, openInfo] = useState(false);
-
+  const { width } = useWindowSize();
+  const keyPressed = useWindowKeydown();
 
   useEffect(() => {
-    if (window.innerWidth >= 601) {
+    if (width >= 601) {
       openInfo(true)
     }
-  }, [])
+  }, [width]);
+
+  console.log(width)
+
+  const closeInfo = () => {
+    dispatch(hideImage());
+  }
+
+  const toggleMenu = () => {
+    openInfo(!isInfoOpened);
+  }
+
+  const handleKeyPressed = () => {
+    if (keyPressed === 'Escape') {
+      closeInfo();
+    }
+    return keyPressed
+  }
 
   return(
-    <div className="layout row">
-      {isInfoOpened && <InfoSection id={id} tags={tags} date={date} source={source} rating={rating} size={size}/>}
-      <ContentSection extension={extension} url={url} id={id}/>
-      <LayoutButton position='right' icon='close' onClick={() => {dispatch(hideImage())}}/>
-      {
-        window.innerWidth < 601
-        &&
-        <LayoutButton position='left' icon='menu' onClick={() => {openInfo(!isInfoOpened)}}/>
-      }
-    </div>
+    <ImageInfo
+      width={width}
+      isInfoOpened={isInfoOpened}
+      info={props.info}
+      closeInfo={closeInfo}
+      toggleMenu={toggleMenu}
+      handleKeyPressed={handleKeyPressed}
+    />
   )
 }
 
