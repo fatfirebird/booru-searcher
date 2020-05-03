@@ -75,7 +75,7 @@ export const resetImages = ():TReset => ({
 export const getImages = (search: string, page: any) => {
   return (dispatch: Dispatch<any>) => {
     dispatch(showLoader());
-    axios.get('http://localhost:5000/images' + search)
+    axios.get('/images' + search)
       .then(res => {
         const {images, next} = res.data;
         console.log('page ' + next)
