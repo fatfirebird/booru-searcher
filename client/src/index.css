@@ -75,13 +75,17 @@
     max-height: 100%;
 
     overflow-y: scroll;
+    text-align: left;
 }
 
 .tag {
     color: #26a69a;
-    font-size: 1.2rem;
-    font-weight: 450;
+    /*font-weight: 450;*/
     word-break: break-word;
+}
+
+.section a:hover {
+    text-decoration-line: underline;
 }
 
 .main-image-container {
@@ -116,18 +120,29 @@
 
 @media only screen and (min-width: 601px) {
     .images-container {
-        width: 95%
+        width: 90%;
     }
 
     .main-image {
-        /* max-width: 470px; */
-        max-height: 470px;
+        max-width: 550px;
+    }
+}
+
+@media only screen and (min-width: 601px) and (min-height: 320px) {
+    .main-image {
+        max-height: 350px;
+    }
+}
+
+@media only screen and (min-width: 601px) and (min-height: 600px) {
+    .main-image {
+        max-height: 650px;
     }
 }
 
 @media only screen and (min-width: 992px) {
     .main-image {
-        /* max-width: 660px; */
-        max-height: 660px;
+        max-width: 740px;
+        max-height: 680px;
     }
 }
