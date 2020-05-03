@@ -9,11 +9,11 @@ import { default as imagesRouter } from './routes/imagesRouter';
 const app = express();
 const PORT = process.env.PORT || 5000;
 
-app.use(express.static(path.join(__dirname, '../client/build')));
+// app.use(express.static(path.join(__dirname, '../client/build')));
 app.use(bodyParser.json());
 
 if (process.env.NODE_ENV === 'production') {
-  app.use(express.static('client/build'));
+  app.use(express.static(path.join(__dirname, '../client/build')));
 }
 
 app.use('/', homeRouter);
