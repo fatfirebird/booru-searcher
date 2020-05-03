@@ -1,9 +1,10 @@
-// import { Request, Response } from 'express';
-//
-// const render = (req: Request, res: Response): void => {
-//   res.render('search');
-// }
-//
-// export default {
-//   render,
-// }
+import { Request, Response } from 'express';
+import * as path from 'path';
+
+const render = (req: Request, res: Response): void => {
+  res.sendFile(path.join(__dirname + 'client/build/index.html'));
+}
+
+export default {
+  render,
+}
