@@ -7,6 +7,7 @@ import { AppState } from "../../redux/reducers/rootReducer";
 import Gallery from "./Gallery";
 import ImageInfoContainer from "./imageInfo/ImageInfoContainer";
 import Loader from "../Loader/Loader";
+import ErrorPage from "../UI/ErrorPage/ErrorPage";
 
 type TBooru = '' | 'Konachan' | 'Gelbooru' | 'Danbooru' | 'Yandere' | 'Safebooru' | 'SankakuComplex';
 type TOrder = 'd' | 'r';
@@ -105,7 +106,7 @@ const GalleryContainer = ({history}: any) => {
           }
         </React.Fragment>
         :
-        !isLoading && <div>Popados</div>
+        !isLoading && <ErrorPage error='no_images'/>
       }
       {isLoading && <Loader/>}
       {isOpened && <ImageInfoContainer info={imageInfo}/>}

@@ -8,7 +8,7 @@ type TProps = {
 
 const LayoutButton = (props: TProps) => {
   return(
-    <div className={`col s1 button-container ${props.position}`}>
+    <div className={`button-container col s1 ${props.position}`}>
       <button
         id='layout-menu'
         className={`btn-floating btn-large waves-effect waves-light right blue-grey darken-4`}

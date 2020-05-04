@@ -22,7 +22,8 @@ const ImageInfo = (props: TProps) => {
       {
         props.handleKeyPressed() !== 'Escape'
         &&
-        <div className="layout row">
+        <div className='layout-container row'>
+          <div className='layout' onClick={closeInfo}/>
           {isInfoOpened && <InfoSection id={id} tags={tags} date={date} source={source} rating={rating} size={size}/>}
           <ContentSection extension={extension} url={url} id={id}/>
           <LayoutButton position='right' icon='close' onClick={closeInfo}/>

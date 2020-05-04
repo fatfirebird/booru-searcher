@@ -19,7 +19,8 @@ const DescriptionSection = (props: TProps) => {
     size: TSize,
     date: number
   ) => {
-    const localDate = new Date(date).toLocaleDateString();
+    const correctDate = Number(date + '000'); //в дате приходящей с сервера не хватает чисел
+    const localDate = new Date(correctDate).toLocaleDateString();
     return(
       <React.Fragment>
         {source && <a href={source} target="_blank">Оригинал</a>}
