@@ -1,0 +1,183 @@
+@import "~materialize-css/dist/css/materialize.min.css";
+
+.header {
+    margin-bottom: 50px;
+}
+
+.question .flow-text{
+    margin: 0;
+}
+
+.select-wrapper input.select-dropdown:focus {
+    box-shadow: 0 1px 0 0 #26a69a;
+}
+
+.dropdown-content li>span {
+    color: #263238;
+}
+
+.image-wrapper {
+    display:inline-block;
+    width: 160px;
+    height: 160px;
+    text-align:center;
+    vertical-align: middle;
+}
+
+.image-wrapper img {
+    border: 2px solid #757575;
+    border-radius: 2%;
+
+    max-width: 150px;
+    max-height: 150px;
+
+    cursor: pointer;
+}
+
+.image-wrapper img:hover {
+    border-color: #26a69a;
+    transition: 0.3s;
+}
+
+.images-container {
+    margin: 0 auto;
+    width: 90%;
+}
+
+.images-container .row {
+    text-align: center;
+}
+
+/*TODO layout на мобилках должен покрывать 100% экрана*/
+
+.layout-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+
+    width: 100%;
+    height: 100vh;
+
+    margin: 0;
+}
+
+.layout {
+    position: fixed;
+    top: 0;
+    left: 0;
+
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.589);
+}
+
+.info-container {
+    position: relative;
+    height: 100%;
+    max-height: 100%;
+
+    overflow-y: scroll;
+    text-align: left;
+    z-index: 2;
+}
+
+.tag {
+    color: #26a69a;
+    /*font-weight: 450;*/
+    word-break: break-word;
+}
+
+.section a:hover {
+    text-decoration-line: underline;
+}
+
+.main-image-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    height: 100%;
+}
+
+.main-image-container a {
+    z-index: 1;
+}
+
+.main-image {
+    max-width: 300px;
+    border: 2px solid #f5f5f5;
+}
+
+.error-image {
+    max-height: 300px;
+}
+
+/*TODO Исправить размеры изображения для разных устройств*/
+
+.button-container {
+    z-index: 2;
+}
+
+@media only screen and (max-width: 601px) {
+    .button-container.right,
+    .button-container.left {
+        position: fixed;
+        top: 0;
+    }
+
+    .button-container.right {
+        right: 0 !important;
+    }
+
+    .button-container.left {
+        right: 62px  !important;
+    }
+}
+
+@media only screen and (min-width: 300px) {
+    .main-image {
+        max-height: 250px;
+    }
+}
+
+@media only screen and (min-width: 300px) and (min-height: 500px) {
+    .main-image {
+        max-height: 450px;
+    }
+}
+
+@media only screen and (min-width: 601px) {
+    .images-container {
+        width: 90%;
+    }
+
+    .main-image {
+        max-width: 420px;
+    }
+}
+
+@media only screen and (min-width: 601px) and (min-height: 320px) {
+    .main-image {
+        max-height: 320px;
+    }
+}
+
+@media only screen and (min-width: 701px) {
+    .main-image {
+        max-width: 500px;
+    }
+}
+
+@media only screen and (min-width: 601px) and (min-height: 600px) {
+    .main-image {
+        max-height: 620px;
+    }
+}
+
+@media only screen and (min-width: 992px) {
+    .main-image {
+        max-width: 740px;
+        max-height: 650px;
+    }
+}
