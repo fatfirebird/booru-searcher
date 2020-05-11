@@ -53,7 +53,6 @@ const render = async(req: Request, res: Response) => {
 
     res.json({ images, next: query.next });
   } catch (error) {
-    console.log(error);
     res.json({ images: [], next: '' });
   }
 }
